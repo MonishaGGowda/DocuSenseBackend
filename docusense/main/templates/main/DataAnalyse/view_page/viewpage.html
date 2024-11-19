@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/viewpage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header-component></header-component>
+    <div class="table-container">
+        <table id="analysis-table">
+            <thead>
+                <tr>
+                    <th>Select</th> 
+                    <th>Analysis Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button id="deleteButton" class="deleteButton" onclick="deleteSelected()">Delete Selected</button>
+    </div>
+    <footer>
+        <p>&copy; Non Copyrighted © 2024 Upload by DocuSense Technologies</p>
+    </footer>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/viewpage.js' %}"></script>
+    <script src="{% static 'js/header_component.js' %}" defer></script>
+</body>
+</html>

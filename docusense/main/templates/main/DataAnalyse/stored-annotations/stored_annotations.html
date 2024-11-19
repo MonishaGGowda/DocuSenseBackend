@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="stored_annotations.css">
+</head>
+<body>
+
+<header-component></header-component>
+
+<section class="connections-header">
+    <p>Explore the list of annotations from various documents</p>
+</section>
+
+<div class="filter-section">
+    <div class="filter-container">
+        <input type="text" id="filterInput" class="filterInput" placeholder="Search Documents...">
+        <select id="tagSelect" class="tagSelect">
+            <option value="" disabled selected>Select a tag</option>
+        </select>
+        <button id="resetButton" class="marginL10 resetButton">Reset</button>
+    </div>
+</div>
+
+<div class="card-list"></div>
+<footer>
+    <p>&copy; Non Copyrighted © 2024 Upload by DocuSense Technologies</p>
+</footer>
+<script src="../main.js"></script>
+<script src="../stored-annotations/stored_annotations.js"></script>
+<script src="../header_component/header_component.js" defer></script>
+
+</body>
+</html>
