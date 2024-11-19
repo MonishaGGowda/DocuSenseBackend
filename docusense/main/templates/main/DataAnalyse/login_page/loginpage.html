@@ -1,7 +1,8 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="loginpage.css">
+    <link rel="stylesheet" href="{% static 'css/loginpage.css' %}">
 </head>
 <body>
     <main>
@@ -51,7 +52,7 @@
             </div>
         </div>
     </footer>
-    <script src="../main.js"></script>
-    <script src="loginpage.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/loginpage.js' %}"></script>
 </body>
 </html>
