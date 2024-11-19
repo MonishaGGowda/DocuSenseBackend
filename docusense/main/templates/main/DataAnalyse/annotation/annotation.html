@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{% static 'css/annotation.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>Data Analyse - Annotate Document</title>
+</head>
+<body>
+  <header-component></header-component>
+  <div class="doc-name">
+    <h1 id="analysisTitle">Data Analyse - Annotate Document</h1>
+    <nav>
+      <ul>
+        <li><a href="../view_page/viewpage.html">List Analysis</a></li>
+        <li><a href="../stored-annotations/stored_annotations.html">Connections</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container gap6">
+    <div class="left-pane">
+      <h2>Documents</h2>
+      <textarea id="searchBox" placeholder="Enter text to search..."></textarea>
+      <button id="filterButton" onclick="filterDocuments()">Filter</button>
+      <button id="clearFilterButton" onclick="clearFilter()">Clear Filter</button>
+      <ul id="documentList"></ul>
+      <input type="file" id="fileUpload" accept=".txt" multiple />
+      <button onclick="uploadDocuments()">Upload Documents</button>
+    </div>
+
+    <div class="center-pane" id="documentContainer">
+      <h2>Document Content</h2>
+      <p>Select a document from the left pane to view its content.</p>
+    </div>
+
+    <div class="right-pane">
+      <h2>Annotations</h2>
+      <div id="annotationsContainer"></div>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <div class="summary-option">
+      <label>
+        <input type="radio" name="summaryType" value="file" checked>
+        File Summary
+      </label>
+      <label>
+        <input type="radio" name="summaryType" value="entire">
+        Entire Analysis Summary
+      </label>
+      <button id="summaryButton" class="summaryButton" onclick="toggleSummary()">Show Summary</button>
+      <button id="highlightButton" class="highlightButton" onclick="toggleHighlighter()">Enable Highlighter</button>
+    </div>
+  </div>
+
+  <div class="summary-container" id="summaryContainer" style="display:none;">
+    <h2>Summary</h2>
+    <p>This section will display the summary of the document or analysis.</p>
+  </div>
+
+  <div id="annotationPopup" class="annotationPopup popup" style="display: none;"> 
+    <textarea id="annotationText" class="annotationText" rows="4" placeholder="Create your notes/annotation"></textarea><br>
+    <button onclick="saveAnnotation()">Add Annotation</button>
+    <button type="button" onclick="closeAnnotationPopup()">Cancel</button>
+  </div>
+
+  <footer>
+    <p>&copy; Non Copyrighted © 2024 Upload by DocuSense Technologies</p>
+</footer>
+
+  <script src="{% static js/main.js %}"></script>
+  <script src="{% static js/annotation.js %}"></script>
+  <script src="{% static js/header_component.js %}" defer></script>
+</body>
+</html>

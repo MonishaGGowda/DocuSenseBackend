@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DocuSense</title>
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pop-up.css' %}">
+</head>
+<body>
+    <header-component></header-component>
+
+    <section class="title">
+        <h1>DocuSense Helps You <br> Build Amazing Analysis</h1>
+        <p>Tools that Make Data Analysis Easier</p>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <img src="{% static 'images/icons/create.png' %}" alt="Create">
+            <h3>New Analysis</h3>
+            <button id="openPopupBtn">Create</button>
+        </div>
+
+        <div class="feature">
+            <img src="{% static 'images/icons/search.png' %}" alt="View">
+            <h3>View My Analysis</h3>
+            <button onclick="loadViewPage()">Show</button>
+        </div>
+    </section>
+
+    <div id="popupForm" class="popup-form" style="display: none;">
+        <div class="form-container">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <div>
+            <h2>New Analysis:</h2>
+        </div>
+        <div>
+            <label>Name:</label>
+            <input class="box-size" type="text" id="name" placeholder="Enter the name of the Analysis"></div>
+            <div>
+            <label>Description:</label>
+            <input  class="box-size" type="desc" id="desc" placeholder="Enter the description">
+             </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </div>
+    </div>
+    <script>const viewPageUrl = "{% url 'main:view_page' %}";</script>
+
+    <footer>
+        <p>&copy; Non Copyrighted © 2024 Upload by DocuSense Technologies</p>
+    </footer>
+    <script src="{% static 'js/pop-up.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/homepage.js' %}"></script>
+    <script src="{% static 'js/header_component.js' %}" defer></script>
+</body>
+</html>
