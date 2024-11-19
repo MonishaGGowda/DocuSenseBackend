@@ -20,3 +20,6 @@ def annotation_page(request):
     return render(request, 'main/DataAnalyse/annotation/annotation.html', {
         'analysis': analysis_name
     })
+
+def login_page(request):
+    return render(request, 'main/DataAnalyse/login_page/loginpage.html')
