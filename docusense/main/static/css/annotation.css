@@ -1,0 +1,140 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: black;
+  display: flex;
+  flex-direction: column; 
+}
+
+main {
+  flex: 1; 
+  display: flex; 
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  padding: 20px;
+  height: 60%; 
+}
+
+.left-pane, .center-pane, .right-pane {
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  overflow-y: auto; 
+}
+
+.left-pane {
+  width: 20%;
+}
+
+.center-pane {
+  width: 60%;
+}
+
+.right-pane {
+  width: 20%;
+  position: relative; 
+}
+
+.highlightButton {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007BFF; 
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+}
+
+.addAnnotationButton {
+  margin-top: 10px; 
+  padding: 10px 20px;
+  background-color: #007BFF; 
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.annotationPopup {
+  display: none; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1000;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start; 
+  margin: 10px 20px;
+  height: 40%; 
+  padding: 20px; 
+  background-color: #f9f9f9;
+}
+
+.summary-option {
+  margin: 5px 0;
+  width: 100%;
+}
+
+.summary-container {
+  display: none; 
+  flex-basis: 75%; 
+  padding: 20px; 
+  background-color: #f9f9f9;
+  border: 1px solid #ccc; 
+  margin: 5px;
+  overflow: auto; 
+  max-height: 300px; 
+  word-wrap: break-word;
+}
+
+.summaryButton {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #28a745; 
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+}
+
+.high-relevancy {
+  color: green; 
+}
+
+.low-relevancy {
+  color: red;
+}
+
+.doc-name{
+  text-align: center;
+}
+
+.doc-name nav{
+  display: block;
+}
+
+
+.annotationText {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    resize: none; 
+    font-family: 'Roboto', sans-serif; 
+}

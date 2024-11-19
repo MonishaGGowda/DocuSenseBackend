@@ -1,0 +1,62 @@
+body::before {
+    content: '';
+    background: url('../icons/loupe.png') center center / cover no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(8px); 
+    z-index: -1; 
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.95); 
+    border: 2px solid #333; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    overflow: hidden; 
+    box-sizing: border-box; 
+    overflow-x: hidden;
+}
+
+.table-container {
+    padding: 20px; 
+}
+
+thead th {
+    background-color: #f0f0f0; 
+    border-bottom: 2px solid #333;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.deleteButton {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #dc3545; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #c82333; 
+}
+
+@media (max-width: 768px) {
+    .content-container {
+        width: 90%;
+    }
+}

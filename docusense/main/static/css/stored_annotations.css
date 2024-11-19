@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.connections-header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 15px;
+    text-align: left;
+}
+
+.annotation-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.annotation-text {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.annotation-meta {
+    font-size: 12px;
+    color: #666;
+}
+
+.annotation-meta a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.annotation-meta a:hover {
+    text-decoration: underline;
+}
+
+.tag-dropdown {
+    position: absolute; 
+    z-index: 1000;
+    width: 300px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 5px; 
+    display: none;
+}
+
+.tag-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.tag-item:hover {
+    background-color: #f0f0f0;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: center;
+}
+
+.filter-container {
+    display: flex; 
+    align-items: center; 
+    gap: 1em;
+}
+
+.tagSelect {
+    width: 200px; 
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.filterInput {
+    width: 300px; 
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10px; 
+}
+
+marginL10{
+    margin-left: 10px;
+}
+
+.resetButton{
+    width: 5em;
+    height: 3em;
+}
