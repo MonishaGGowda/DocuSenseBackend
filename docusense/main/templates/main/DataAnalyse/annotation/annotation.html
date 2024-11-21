@@ -12,8 +12,8 @@
     <h1 id="analysisTitle">Data Analyse - Annotate Document</h1>
     <nav>
       <ul>
-        <li><a href="../view_page/viewpage.html">List Analysis</a></li>
-        <li><a href="../stored-annotations/stored_annotations.html">Connections</a></li>
+        <li><a href="{% url 'main:view_page' %}">List Analysis</a></li>
+        <li><a href="{% url 'main:get_stannotations' %}">Connections</a></li>
       </ul>
     </nav>
   </div>
@@ -70,8 +70,8 @@
     <p>&copy; Non Copyrighted © 2024 Upload by DocuSense Technologies</p>
 </footer>
 
-  <script src="{% static js/main.js %}"></script>
-  <script src="{% static js/annotation.js %}"></script>
-  <script src="{% static js/header_component.js %}" defer></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/annotation.js' %}"></script>
+  <script src="{% static 'js/header_component.js' %}" defer></script>
 </body>
 </html>

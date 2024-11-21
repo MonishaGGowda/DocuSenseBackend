@@ -54,30 +54,29 @@ function renderDocumentList() {
   document.addEventListener("DOMContentLoaded", () => {
     const documentList = document.getElementById("documentList");
     
-    if (documentContainer) {
+    if (documentList) {
       documentList.innerHTML = ''; 
+      filteredDocuments.forEach((doc, index) => {
+        const li = document.createElement("li");
+    
+        const docLink = document.createElement("a");
+        docLink.href = `../annotation/annotation.html?document=${encodeURIComponent(doc.name)}`; 
+        docLink.textContent = doc.name; 
+        li.appendChild(docLink);
+    
+        const relevancySelect = document.createElement("select");
+        relevancySelect.innerHTML = `
+          <option value="high" ${doc.relevancy === "high" ? "selected" : ""}>High</option>
+          <option value="low" ${doc.relevancy === "low" ? "selected" : ""}>Low</option>
+        `;
+        relevancySelect.onchange = () => changeRelevancy(index, relevancySelect.value);
+        li.appendChild(relevancySelect);
+    
+        documentList.appendChild(li); 
+      });
     } else {
         console.error("Element with ID 'documentList' not found.");
     }
-  });
-
-  filteredDocuments.forEach((doc, index) => {
-    const li = document.createElement("li");
-
-    const docLink = document.createElement("a");
-    docLink.href = `../annotation/annotation.html?document=${encodeURIComponent(doc.name)}`; 
-    docLink.textContent = doc.name; 
-    li.appendChild(docLink);
-
-    const relevancySelect = document.createElement("select");
-    relevancySelect.innerHTML = `
-      <option value="high" ${doc.relevancy === "high" ? "selected" : ""}>High</option>
-      <option value="low" ${doc.relevancy === "low" ? "selected" : ""}>Low</option>
-    `;
-    relevancySelect.onchange = () => changeRelevancy(index, relevancySelect.value);
-    li.appendChild(relevancySelect);
-
-    documentList.appendChild(li); 
   });
 }
 
@@ -294,7 +293,7 @@ function populateTable(data) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td><input type="checkbox" class="delete-checkbox" data-index="${index}"></td> 
-            <td><a href="{% url 'main:annotation_page' %}?analysis=${encodeURIComponent(item.name)}">${item.name}</a></td>
+            <td><a href="${annotationPageUrl}?analysis=${encodeURIComponent(item.name)}">${item.name}</a></td>
             <td>${item.description}</td>
         `;
         tableBody.appendChild(row);
@@ -313,11 +312,67 @@ function populateTable(data) {
 }
 
 function deleteSelected() {
-    const checkboxes = document.querySelectorAll('.delete-checkbox:checked');
-    const indicesToDelete = Array.from(checkboxes).map(checkbox => checkbox.dataset.index);
+  const checkboxes = document.querySelectorAll('.delete-checkbox:checked');
+  const indicesToDelete = Array.from(checkboxes).map(checkbox => parseInt(checkbox.dataset.index, 10)); 
+  const namesToDelete = Array.from(checkboxes).map(checkbox => checkbox.closest('tr').querySelector('td:nth-child(2) a').textContent);
 
-    const updatedAnalyses = items.filter((_, index) => !indicesToDelete.includes(index.toString()));
+  console.log('Indices to delete:', indicesToDelete);
+  const updatedItems = items.filter((_, index) => !indicesToDelete.includes(index));
 
-    localStorage.setItem('analyses', JSON.stringify(updatedAnalyses));
-    populateTable(updatedAnalyses);
+    if (namesToDelete.length === 0) {
+        alert('No items selected for deletion.');
+        return;
+    }
+    fetch('/delete_analyses/', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken') // Add CSRF token for security
+      },
+      body: JSON.stringify({ names: namesToDelete })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert(data.message);
+          fetch('/get_analyses/',{
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json(); // Parse the response as JSON
+      })
+      .then(item => {
+          console.log('Updated analyses:', item.analyses); // Debug log for fetched data
+          populateTable(item.analyses); // Update table with fresh data
+      }).catch(error => console.error('Error refreshing data:', error));
+      } else {
+          alert(data.message);
+      }
+  })
+    // const updatedAnalyses = items.filter((_, index) => !indicesToDelete.includes(index.toString()));
+
+    // localStorage.setItem('analyses', JSON.stringify(updatedAnalyses));
+    // populateTable(updatedAnalyses);
+}
+
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith(name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
 }

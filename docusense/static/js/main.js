@@ -302,8 +302,35 @@ function deleteSelected() {
     const checkboxes = document.querySelectorAll('.delete-checkbox:checked');
     const indicesToDelete = Array.from(checkboxes).map(checkbox => checkbox.dataset.index);
 
-    const updatedAnalyses = items.filter((_, index) => !indicesToDelete.includes(index.toString()));
+    if (idsToDelete.length === 0) {
+      alert('No items selected for deletion.');
+      return;
+  }
+    fetch('/delete-analyses/', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken') // Add CSRF token for security
+      },
+      body: JSON.stringify({ ids: idsToDelete })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert(data.message);
 
-    localStorage.setItem('analyses', JSON.stringify(updatedAnalyses));
-    populateTable(updatedAnalyses);
+          fetch('/api/get-analyses/')
+              .then(response => response.json())
+              .then(data => populateTable(data.analyses))
+              .catch(error => console.error('Error refreshing data:', error));
+      } else {
+          alert(data.message);
+      }
+  })
+  .catch(error => console.error('Error deleting items:', error));
+
+    // const updatedAnalyses = items.filter((_, index) => !indicesToDelete.includes(index.toString()));
+
+    // localStorage.setItem('analyses', JSON.stringify(updatedAnalyses));
+    // populateTable(updatedAnalyses);
 }
