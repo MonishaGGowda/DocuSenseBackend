@@ -5,6 +5,14 @@
   <link rel="stylesheet" href="{% static 'css/annotation.css' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <title>Data Analyse - Annotate Document</title>
+  <style>
+    .highlight {
+        background-color: yellow;
+        font-weight: bold;
+        padding: 2px;
+        border-radius: 3px;
+    }
+  </style>
 </head>
 <body>
   <header-component></header-component>
@@ -36,7 +44,7 @@
 
     <div class="right-pane">
       <h2>Annotations</h2>
-      <div id="annotationsContainer"></div>
+      <div id="annotationsContainer" class = "annotations-pane"></div>
     </div>
   </div>
 
