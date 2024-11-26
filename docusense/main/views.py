@@ -56,7 +56,6 @@ def search_documents(request):
         print(f"Error in search_documents: {e}")
         return JsonResponse({"error": "An unexpected error occurred."}, status=500)
 
-@login_required
 def save_annotation(request):
     if request.method == 'POST':
         try:
@@ -451,7 +450,7 @@ def get_all_annotations(request):
         # Prepare the response structure
         formatted_annotations = [
             {
-                "title": annotation["highlight"] if annotation["highlight"] else "Untitled",
+                "title": annotation["highlight"] if annotation["highlight"] else annotation["content"],
                 "source": annotation["document__name"],
                 "sourceLink": f"/annotation/?document={annotation['document__name']}",
                 "description": annotation["content"],

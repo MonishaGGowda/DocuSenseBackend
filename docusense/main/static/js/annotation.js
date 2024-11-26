@@ -32,7 +32,7 @@ function toggleSummary() {
                   const summaryObject = JSON.parse(data.summary);
                   summaryContainer.innerHTML = `<h2>Summary</h2>${formatSummaryAsHtml(summaryObject)}`;
               } catch (e) {
-                  console.warn("Summary is not JSON. Rendering as plain text.");
+                  console.log("Summary is not JSON. Rendering as plain text.");
                   summaryContainer.innerHTML = `<h2>Summary</h2><p>${data.summary}</p>`;
               }
           } else {

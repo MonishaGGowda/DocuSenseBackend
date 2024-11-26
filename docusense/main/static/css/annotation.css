@@ -98,7 +98,6 @@ main {
   background-color: #f9f9f9;
   border: 1px solid #ccc; 
   margin: 5px;
-  overflow: auto; 
   max-height: 300px; 
   word-wrap: break-word;
 }
