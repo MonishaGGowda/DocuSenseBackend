@@ -17,14 +17,16 @@ from .models import UploadedDocument
 from django.db.models import Q
 from .models import Annotation
 import google.generativeai as genai
+from django.contrib.auth.decorators import login_required
 
 genai.configure(api_key='AIzaSyDK-HUZY-kkLZAW_yjuqeJYASUsC_QKGXw')
+
 def get_uploaded_documents(request):
     documents = UploadedDocument.objects.all().values('id', 'name', 'file', 'upload_time', 'relevancy')
     return JsonResponse(list(documents), safe=False)
 
 
-
+@login_required
 def search_documents(request):
     search_term = request.GET.get("search", "").strip()
 
@@ -54,7 +56,7 @@ def search_documents(request):
         print(f"Error in search_documents: {e}")
         return JsonResponse({"error": "An unexpected error occurred."}, status=500)
 
-@csrf_exempt
+@login_required
 def save_annotation(request):
     if request.method == 'POST':
         try:
@@ -84,6 +86,7 @@ def save_annotation(request):
 
     return JsonResponse({"error": "Invalid request method."}, status=405)
 
+@login_required
 def get_annotations(request):
     document_name = request.GET.get('document_name')  # Get document name from query parameter
     try:
@@ -107,14 +110,18 @@ def get_annotations(request):
 
 
 from main.models import MainUser
+@login_required
 def annotation_view(request):
     return render(request, 'annotation/annotation.html')
+
+@login_required
 def get_documents(request):
     # List all `.txt` files in the `main/documents/` folder
     documents_path = os.path.join(settings.BASE_DIR, "main", "documents")
     documents = [file for file in os.listdir(documents_path) if file.endswith(".txt")]
     return JsonResponse(documents, safe=False)
 
+@login_required
 def get_document_content(request):
     document_name = request.GET.get("document")
     
@@ -136,6 +143,7 @@ def get_document_content(request):
     except Exception as e:
         return JsonResponse({"error": f"An error occurred: {str(e)}"}, status=500)
 
+@login_required
 def generate_document_summary(request):
     document_name = request.GET.get("document_name")
     all_documents = request.GET.get("all_documents", "false").lower() == "true"
@@ -179,11 +187,13 @@ def generate_document_summary(request):
         print(f"Error in generate_document_summary: {e}")
         return JsonResponse({"error": "An unexpected error occurred"}, status=500)
 
+@login_required
 def viewpage(request):
     return render(request = request,
                   template_name='main/DataAnalyse/view_page/viewpage.html'
                   )
 
+@login_required
 def annotation_page(request):
     analysis_name = request.GET.get('analysis')  
     return render(request, 'main/DataAnalyse/annotation/annotation.html', {
@@ -191,6 +201,7 @@ def annotation_page(request):
     })
 
 # Create your views here.
+@login_required
 def homepage(request):
     return render(request = request,
                   template_name='main/DataAnalyse/home_page/homepage.html',
@@ -209,16 +220,6 @@ def annotationpage(request):
 
 @csrf_exempt
 def loginpage(request):
-    # if request.method == 'POST':
-    #     username = request.POST.get('username')
-    #     password = request.POST.get('password')
-    #     user = authenticate(request, username=username, password=password)
-    #     if user:
-    #         login(request, user)
-    #         return redirect('homepage')  # Redirect to the homepage
-    #     else:
-    #         messages.error(request, 'Invalid username or password.')
-    # return render(request, 'main/DataAnalyse/login_page/loginpage.html')
     if request.method == 'GET':
         return render(request, 'main/DataAnalyse/login_page/loginpage.html')
     if request.method == 'POST':
@@ -231,10 +232,12 @@ def loginpage(request):
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
+                request.session.save()
                 return JsonResponse({'success': True})
             else:
                 return JsonResponse({'success': False, 'message': 'Invalid username or password.'})
         except Exception as e:
+            print(f"Error during login: {e}")
             return JsonResponse({'success': False, 'message': str(e)})
 
     return JsonResponse({'success': False, 'message': 'Invalid request method.'})

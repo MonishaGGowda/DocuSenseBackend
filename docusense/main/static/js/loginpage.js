@@ -17,7 +17,6 @@ document.getElementById('login-btn').addEventListener('click', async function ()
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken() // Include CSRF token
                 },
                 body: JSON.stringify({ username, password })
             });
@@ -26,7 +25,7 @@ document.getElementById('login-btn').addEventListener('click', async function ()
 
             if (data.success) {
                 alert('Logged in successfully!');
-                window.location.href = '/home_page/'; // Adjust URL to your Django homepage
+                window.location.href = '/home_page/'; 
             } else {
                 alert(data.message || 'Login failed.');
             }

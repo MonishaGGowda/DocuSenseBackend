@@ -114,6 +114,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+# SESSION_COOKIE_AGE = 3600
+# LOGIN_URL = '/login_page/'
+# LOGIN_REDIRECT_URL = '/home_page/'
 
 
 # Static files (CSS, JavaScript, Images)
