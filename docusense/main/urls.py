@@ -15,7 +15,8 @@ urlpatterns = [
     path('get_analyses/', views.get_analyses, name='get_analyses'),
     path('get_stannotations/', views.get_stannotations, name='get_stannotations'),
     path('delete_analyses/', views.delete_analyses, name='delete_analyses'),
-    path("login_page/",views.loginpage, name="login_page"),
+    path('login_page/',views.loginpage, name="login_page"),
+    path('signup_page/',views.signuppage, name="signup_page"),
     path("",views.loginpage, name="login_page"),
     path('annotation/', views.annotation_view, name='annotation'),
     path('api/get-documents/', views.get_documents, name='get_documents'),
@@ -30,8 +31,5 @@ urlpatterns = [
     path('api/delete-annotation/', views.delete_annotation, name='delete_annotation'),
     path("api/update-relevancy/", views.update_relevancy, name="update_relevancy"),
     path("api/search-documents/", views.search_documents, name="search_documents"),
-
-
-
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
