@@ -68,7 +68,9 @@ function renderDocumentList() {
       .then(response => response.json())
       .then(data => {
           const documentList = document.getElementById("documentList");
-          documentList.innerHTML = ""; // Clear the list
+          if (documentList){
+          documentList.innerHTML = ""; 
+          
 
           data.forEach(doc => {
               const li = document.createElement("li");
@@ -89,8 +91,11 @@ function renderDocumentList() {
               li.appendChild(relevancySelect);
               documentList.appendChild(li);
           });
+        }
       })
+      
       .catch(error => console.error("Error fetching document list:", error));
+      
 }
 
 function updateDocumentRelevancy(documentName, newRelevancy) {
@@ -117,12 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (documentName) {
       console.log(`Document pre-selected: ${documentName}`); // Debug log
-      selectDocument(documentName); // Automatically load document and annotations
+      selectDocument(documentName);
+      renderDocumentList(); // Automatically load document and annotations
   } else {
       console.log("No document pre-selected.");
   }
-
-  renderDocumentList(); // Populate the document list
+ // Populate the document list
 });
 function selectDocument(documentName) {
   if (!documentName) {
@@ -170,19 +175,6 @@ function selectDocument(documentName) {
       })
       .catch(error => console.error("Error fetching document content:", error));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function changeRelevancy(index, newRelevancy) {
   filteredDocuments[index].relevancy = newRelevancy;
@@ -376,11 +368,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (documentName) {
       selectDocument(documentName);
+      renderDocumentList();
   } else {
       console.log("No document selected on page load.");
   }
 
-  renderDocumentList(); // Populate document list
+   // Populate document list
 });
 
 // Close the annotation popup
@@ -411,8 +404,8 @@ function updateAnnotationsPane(annotations, relevancy) {
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Page loaded. Rendering document list and loading preselected document...");
-  renderDocumentList();
-  loadDocumentFromURL();
+  // renderDocumentList();
+  // loadDocumentFromURL();
 });
 
 
