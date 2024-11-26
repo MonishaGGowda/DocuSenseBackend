@@ -31,5 +31,6 @@ urlpatterns = [
     path('api/delete-annotation/', views.delete_annotation, name='delete_annotation'),
     path("api/update-relevancy/", views.update_relevancy, name="update_relevancy"),
     path("api/search-documents/", views.search_documents, name="search_documents"),
+    path("api/get-all-annotations/", views.get_all_annotations, name="get_all_annotations"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
