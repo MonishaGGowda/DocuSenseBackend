@@ -111,13 +111,52 @@ main {
   border: none; 
   cursor: pointer; 
 }
+.summary-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.summary-container p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #555;
+}
+
+.summary-container ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.summary-container ul li {
+  margin: 5px 0;
+  color: #444;
+}
 
 .high-relevancy {
-  color: green; 
+  background-color: green;
+  color: white;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 4px;
 }
 
 .low-relevancy {
-  color: red;
+  background-color: blue;
+  color: white;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+
+.highlight.high-relevancy {
+  background-color: lightgreen;
+  font-weight: bold;
+}
+
+.highlight.low-relevancy {
+  background-color: lightblue;
+  font-weight: bold;
 }
 
 .doc-name{
@@ -137,4 +176,11 @@ main {
     margin-bottom: 10px;
     resize: none; 
     font-family: 'Roboto', sans-serif; 
+}
+
+body .highlight {
+  background-color: yellow !important;
+  font-weight: bold;
+  padding: 2px;
+  border-radius: 3px;
 }

@@ -102,3 +102,10 @@ footer {
   position: relative; 
   margin-top: auto;
 }
+
+body .highlight {
+  background-color: yellow !important;
+  font-weight: bold;
+  padding: 2px;
+  border-radius: 3px;
+}
