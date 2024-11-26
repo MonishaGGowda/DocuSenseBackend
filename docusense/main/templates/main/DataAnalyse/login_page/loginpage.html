@@ -16,17 +16,19 @@
                     <h2>Log In</h2>
                     <input type="text" placeholder="UserName" id="login-username">
                     <input type="password" placeholder="Password" id="login-password">
-                    <button id="login-btn">Log In</button>
-                    <p>New here? <a href="#">Sign up for free</a></p>
+                    <button id="login-btn">
+                        <a href="{% url 'main:login_page' %}">Log In</a></button>
+                    <!-- <p>New here? <a href="#">Sign up for free</a></p> -->
                 </div>
                 <div class="signup">
                     <h2>Sign up</h2>
                     <input type="text" placeholder="UserName" id="signup-username">
                     <input type="email" placeholder="Email Id" id="signup-email">
                     <input type="password" placeholder="Password" id="signup-password">
-                    <button id="signup-btn">Sign Up</button>
-                    <p>Or</p>
-                    <button id="google-signup-btn">Sign In with Google</button>
+                    <button id="signup-btn">
+                        <a href="{% url 'main:signup_page' %}">Sign Up</a></button>
+                    <!-- <p>Or</p>
+                    <button id="google-signup-btn">Sign In with Google</button> -->
                 </div>
             </div>
         </section>

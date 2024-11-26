@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from pyexpat.errors import messages
+from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from main.forms import AnalysisForm
 from main.models import Analysis, MainUser
 import json
@@ -22,8 +25,73 @@ def annotationpage(request):
         'analysis': analysis_name
     })
 
+@csrf_exempt
 def loginpage(request):
-    return render(request, 'main/DataAnalyse/login_page/loginpage.html')
+    # if request.method == 'POST':
+    #     username = request.POST.get('username')
+    #     password = request.POST.get('password')
+    #     user = authenticate(request, username=username, password=password)
+    #     if user:
+    #         login(request, user)
+    #         return redirect('homepage')  # Redirect to the homepage
+    #     else:
+    #         messages.error(request, 'Invalid username or password.')
+    # return render(request, 'main/DataAnalyse/login_page/loginpage.html')
+    if request.method == 'GET':
+        return render(request, 'main/DataAnalyse/login_page/loginpage.html')
+    if request.method == 'POST':
+        try:
+            # Process login
+            data = json.loads(request.body)
+            username = data.get('username')
+            password = data.get('password')
+
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'message': 'Invalid username or password.'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'})
+
+@csrf_exempt
+def signuppage(request):
+    # if request.method == 'POST':
+    #     username = request.POST.get('username')
+    #     email = request.POST.get('email')
+    #     password = request.POST.get('password')
+        
+    #     if User.objects.filter(username=username).exists():
+    #         messages.error(request, 'Username already taken.')
+    #     elif User.objects.filter(email=email).exists():
+    #         messages.error(request, 'Email already registered.')
+    #     else:
+    #         User.objects.create_user(username=username, email=email, password=password)
+    #         messages.success(request, 'Account created successfully! Please log in.')
+    #         return redirect('homepage')
+    # return render(request, 'main/DataAnalyse/login_page/loginpage.html')
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data.get('username')
+            email = data.get('email')
+            password = data.get('password')
+
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({'success': False, 'message': 'Username already taken.'})
+            elif User.objects.filter(email=email).exists():
+                return JsonResponse({'success': False, 'message': 'Email already registered.'})
+
+            User.objects.create_user(username=username, email=email, password=password)
+            return JsonResponse({'success': True, 'message': 'User registered successfully!'})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'})
 
 def create_analysis(request):
     if request.method == 'POST':
