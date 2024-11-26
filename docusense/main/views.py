@@ -436,3 +436,33 @@ def update_relevancy(request):
             return JsonResponse({"error": str(e)}, status=500)
     else:
         return JsonResponse({"error": "Invalid request method."}, status=405)
+
+def get_all_annotations(request):
+    try:
+        annotations = Annotation.objects.all().select_related('document').values(
+            'id',
+            'content',
+            'highlight',
+            'document__name',
+            'document__relevancy',
+            'created_at'
+        )
+
+        # Prepare the response structure
+        formatted_annotations = [
+            {
+                "title": annotation["highlight"] if annotation["highlight"] else "Untitled",
+                "source": annotation["document__name"],
+                "sourceLink": f"/annotation/?document={annotation['document__name']}",
+                "description": annotation["content"],
+                "dateAdded": annotation["created_at"].strftime("%Y-%m-%d"),
+                "tags": [annotation["document__relevancy"]],
+            }
+            for annotation in annotations
+        ]
+
+        return JsonResponse(formatted_annotations, safe=False)
+
+    except Exception as e:
+        print(f"Error fetching annotations: {e}")
+        return JsonResponse({"error": "An unexpected error occurred."}, status=500)
