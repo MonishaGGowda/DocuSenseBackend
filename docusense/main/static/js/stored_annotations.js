@@ -125,7 +125,7 @@ function displayAnnotations(filteredAnnotations) {
         card.classList.add('card');
 
         card.innerHTML = `
-            <h3 class="annotation-title">${annotation.description}</h3>
+            <h3 class="annotation-title">${annotation.title}</h3>
             <p class="source-document">
                 Source: <a href="${annotation.sourceLink}">${annotation.source}</a>
             </p>
