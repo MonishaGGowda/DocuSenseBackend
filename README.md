@@ -6,6 +6,7 @@
 - **Manasvi Reddy Kothakota**  
 
 ---
+<img width="2842" height="1598" alt="image" src="https://github.com/user-attachments/assets/679895a7-00b2-4a79-a68e-4f02d2499722" />
 
 ## Introduction to DocuSense  
 
